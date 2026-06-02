@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPulse 2026 - Smart Micro-Break Generator</title>
+
+    <link rel="stylesheet" href="fitpulse.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <header class="app-header">
+            <h1>
+                Smart Recovery Assistant
+                <span class="icon-header">&#9874;</span>
+            </h1>
+
+            <p>
+                Automatically detects the end of your training sets and
+                prescribes immediate muscular recovery protocols.
+            </p>
+        </header>
+
+        <div class="control-section">
+
+            <button id="activity-btn" class="pulse-btn">
+                <span class="icon-btn">&#9873;</span>
+                End Current Training Set
+            </button>
+
+        </div>
+
+        <div style="margin-top:30px;text-align:center;">
+
+    <a href="mood-interface.html">
+        ← Previous
+    </a>
+
+    &nbsp;&nbsp;&nbsp;
+
+    <a href="progress-tracker.html">
+        Next →
+    </a>
+
+</div>
+
+</div>
+        <div id="alert-cloud" class="alert-cloud hidden">
+
+            <img
+                src="alert-sad.png"
+                alt="Warning"
+                class="alert-img"
+            >
+
+            <div class="alert-text">
+
+                <strong>
+                    &#9888; Recovery Alert:
+                </strong>
+
+                Pulse sensors indicate you haven't completed your
+                current recovery window. Rest first to protect
+                your muscles.
+
+            </div>
+
+        </div>
+
+        <main id="result-wrapper"
+              class="result-wrapper hidden">
+
+            <h2 class="section-title">
+
+                <span class="icon-title">
+                    &#9201;
+                </span>
+
+                Recommended Recovery Protocol:
+
+            </h2>
+
+            <div id="break-card"
+                 class="break-card">
+
+                <div class="card-image-container">
+
+                    <img id="break-img"
+                         src=""
+                         alt="Recovery Exercise">
+
+                </div>
+
+                <h3 id="break-title"
+                    class="break-title">
+                </h3>
+
+                <p id="break-desc"
+                   class="break-desc">
+                </p>
+
+                <div class="card-controls">
+
+                    <button id="accept-btn">
+                        ✔ Start Recovery
+                    </button>
+
+                    <button id="postpone-btn">
+                        ➜ Skip Session
+                    </button>
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <div id="success-bar"
+             class="success-bar hidden">
+
+            <span id="success-text">
+
+                ✔ Recovery session logged successfully.
+                Heart rate returned to safe zone.
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <script src="micro-break.js"></script>
+
+    <a href="mood-interface.html">
+    ← Previous
+</a>
+
+<a href="progress-tracker.html">
+    Next →
+</a>
+
+</body>
+</html>

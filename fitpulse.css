@@ -1,0 +1,212 @@
+/* =========================
+   FitPulse 2026 - Global Style
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: #111827;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #38bdf8;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    margin-left: 15px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #38bdf8;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #cbd5e1;
+}
+
+/* =========================
+   CARDS (Team Pulse)
+========================= */
+
+#activity-feed {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h2 {
+    margin-bottom: 10px;
+}
+
+.card h4 {
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+.activity-text {
+    margin: 10px 0;
+    color: #cbd5e1;
+}
+
+.time {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.status {
+    color: #4ade80;
+    font-size: 13px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* Button */
+
+.pulse-btn {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #38bdf8;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.pulse-btn:hover {
+    background: #0284c7;
+}
+
+.pulse-btn:disabled {
+    background: #22c55e;
+}
+
+/* =========================
+   PROGRESS TRACKER
+========================= */
+
+.tracker-container {
+    text-align: center;
+    padding: 50px;
+}
+
+.tracker-container input {
+    padding: 10px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+.tracker-container button {
+    padding: 10px 15px;
+    border: none;
+    background: #38bdf8;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.progress-container {
+    width: 100%;
+    max-width: 400px;
+    height: 20px;
+    background: #1e293b;
+    margin: 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #22c55e;
+    transition: 0.5s;
+}
+
+/* =========================
+   MICRO BREAK
+========================= */
+
+.app-container {
+    padding: 40px;
+    text-align: center;
+}
+
+.pulse-btn {
+    background: #38bdf8;
+    padding: 12px 20px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.break-card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.success-bar {
+    margin-top: 20px;
+    color: #22c55e;
+}
+
+/* =========================
+   UTILITIES
+========================= */
+
+.hidden {
+    display: none;
+}

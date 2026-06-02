@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPulse 2026 | Mood Interface</title>
+
+    <link rel="stylesheet" href="fitpulse.css">
+</head>
+
+<body class="theme-default">
+
+    <header class="main-header">
+
+        <div class="header-container">
+
+            <div class="logo">
+                GlobalCorp
+                <span>FitPulse</span>
+            </div>
+
+            <div class="project-badge">
+                High-Fidelity Prototype v2.026
+            </div>
+
+        </div>
+
+    </header>
+
+    <main class="viewport">
+
+        <section class="vitality-card">
+
+            <div class="card-header">
+
+                <h1 id="greeting">
+                    Welcome to Vitality Nexus
+                </h1>
+
+                <p>
+                    Optimize your workspace environment instantly by
+                    selecting your current energy state.
+                </p>
+
+            </div>
+
+            <div class="mood-grid">
+
+                <button class="mood-btn"
+                        data-mood="excited">
+
+                    <div class="icon-wrapper">
+                        🚀
+                    </div>
+
+                    <span>Excited</span>
+
+                </button>
+
+                <button class="mood-btn"
+                        data-mood="exhausted">
+
+                    <div class="icon-wrapper">
+                        🪫
+                    </div>
+
+                    <span>Exhausted</span>
+
+                </button>
+
+                <button class="mood-btn"
+                        data-mood="calm">
+
+                    <div class="icon-wrapper">
+                        🧘
+                    </div>
+
+                    <span>Calm</span>
+
+                </button>
+
+                <button class="mood-btn"
+                        data-mood="stressed">
+
+                    <div class="icon-wrapper">
+                        😫
+                    </div>
+
+                    <span>Stressed</span>
+
+                </button>
+
+            </div>
+
+            <div id="status-panel"
+                 class="status-panel">
+
+                <p id="status-text">
+                    Awaiting employee selection to initialize environment...
+                </p>
+
+                <div class="pulse-line"></div>
+
+            </div>
+
+            <!-- Navigation -->
+
+            <div style="margin-top:30px;text-align:center;">
+
+                <a href="micro-break.html">
+                    Next Action →
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+
+        <p>
+            © 2026 GlobalCorp Industries Wellness Initiative.
+            Action 01 Approved Workflow.
+        </p>
+
+    </footer>
+
+    <script src="mood-interface.js"></script>
+    <a href="micro-break.html">
+    Next Action →
+</a>
+
+</body>
+</html>
