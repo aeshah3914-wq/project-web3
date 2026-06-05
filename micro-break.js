@@ -1,179 +1,74 @@
-// Recovery Activities Database
+let shuffleSpamCounter = 0;
+let lastSelectedId = "";
 
-const breaksData = [
-
-    {
-        id: "stretching",
-        imgSrc: "card-stretching.png",
-        title: "Static Muscle Stretching Protocol",
-        desc: "Perform targeted static stretches on the active muscle groups for 30 seconds to improve blood flow and flexibility.",
-        bgClass: "bg-stretch"
-    },
-
-    {
-        id: "hydration",
-        imgSrc: "card-water.png",
-        title: "Rehydration & Electrolyte Protocol",
-        desc: "Consume water gradually to restore fluids and maintain proper hydration levels.",
-        bgClass: "bg-hydrate"
-    },
-
-    {
-        id: "heart-rate",
-        imgSrc: "card-breathing.png",
-        title: "Heart Rate Cool-Down Protocol",
-        desc: "Practice deep breathing and walk slowly to safely lower your heart rate.",
-        bgClass: "bg-heart"
-    },
-
-    {
-        id: "massage",
-        imgSrc: "card-eyes.jpg",
-        title: "Deep Tissue Myofascial Release",
-        desc: "Use a foam roller to reduce muscle tension and improve recovery speed.",
-        bgClass: "bg-massage"
-    }
-
+const matrixRoutines = [
+    { id: "water", title: "Hydration Sync Protocol", img: "card-water.png", actionText: "Complete 250ml 💧︎" },
+    { id: "eyes", title: "Ocular Relaxation Loop", img: "card-eyes.jpg", actionText: "Eyes Rested ✧" },
+    { id: "stretch", title: "Muscular Extension Sync", img: "card-stretching.png", actionText: "Extension Done ✿" },
+    { id: "breath", title: "Vagus Nerve Respiration", img: "card-breathing.png", actionText: "Breathing Synced 𖤓" }
 ];
 
-// System State
+function serveNextMatrixTask() {
+    const slot = document.getElementById('matrixActiveCardSlot');
+    if (!slot) return;
 
-let isNotificationOpen = false;
+    let availableTasks = matrixRoutines.filter(task => task.id !== lastSelectedId);
+    let chosenTask = availableTasks[Math.floor(Math.random() * availableTasks.length)];
+    
+    lastSelectedId = chosenTask.id;
 
-// DOM Elements
-
-const activityBtn =
-    document.getElementById("activity-btn");
-
-const alertCloud =
-    document.getElementById("alert-cloud");
-
-const resultWrapper =
-    document.getElementById("result-wrapper");
-
-const breakCard =
-    document.getElementById("break-card");
-
-const breakImg =
-    document.getElementById("break-img");
-
-const breakTitle =
-    document.getElementById("break-title");
-
-const breakDesc =
-    document.getElementById("break-desc");
-
-const successBar =
-    document.getElementById("success-bar");
-
-const acceptBtn =
-    document.getElementById("accept-btn");
-
-const postponeBtn =
-    document.getElementById("postpone-btn");
-
-// Generate Random Recovery Activity
-
-function triggerRecoveryProtocol() {
-
-    const randomIndex =
-        Math.floor(
-            Math.random() * breaksData.length
-        );
-
-    const selectedBreak =
-        breaksData[randomIndex];
-
-    breakImg.src =
-        selectedBreak.imgSrc;
-
-    breakTitle.textContent =
-        selectedBreak.title;
-
-    breakDesc.textContent =
-        selectedBreak.desc;
-
-    breakCard.className =
-        "break-card " +
-        selectedBreak.bgClass;
+    slot.innerHTML = `
+        <div class="matrix-active-card">
+            <img src="${chosenTask.img}" class="nexus-card-img" alt="${chosenTask.title}">
+            <h3 style="margin: 0 0 10px 0; font-size: 20px; color: var(--accent-maroon);">${chosenTask.title}</h3>
+            <p style="font-size: 14px; color: #8A6F73; margin-bottom: 25px;">Targeted workspace recovery module to protect your wellness balance.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <button class="nexus-real-button" onclick="triggerTaskCompletion()">
+                    ${chosenTask.actionText}
+                </button>
+                <button class="nexus-real-button nexus-skip-button" onclick="triggerTaskSkip()">
+                    Skip Routine ✕
+                </button>
+            </div>
+        </div>
+    `;
 }
 
-// Main Button
+window.onload = () => {
+    serveNextMatrixTask();
+};
 
-activityBtn.addEventListener("click", () => {
-
-    if (isNotificationOpen) {
-
-        alertCloud.classList.remove("hidden");
-
-        return;
+function shuffleMatrixCycle() {
+    shuffleSpamCounter++;
+    
+    // يظهر شريط التنبيه المخفي بنعومة عند الضغط أكثر من مرة (بدءاً من الضغطة الثانية)
+    if (shuffleSpamCounter >= 2) {
+        document.getElementById('matrixStreamAlert').classList.add('show-alert');
     }
 
-    alertCloud.classList.add("hidden");
-    successBar.classList.add("hidden");
-    resultWrapper.classList.add("hidden");
+    if (shuffleSpamCounter > 3) {
+        document.getElementById('warningNoticeModal').classList.add('show-popup');
+        return;
+    }
+    serveNextMatrixTask();
+}
 
-    activityBtn.disabled = true;
+function triggerTaskCompletion() {
+    document.getElementById('successNoticeModal').classList.add('show-popup');
+}
 
-    activityBtn.textContent =
-        "Analyzing fatigue levels...";
+function triggerTaskSkip() {
+    document.getElementById('skipNoticeModal').classList.add('show-popup');
+}
 
-    setTimeout(() => {
-
-        isNotificationOpen = true;
-
-        activityBtn.disabled = false;
-
-        activityBtn.textContent =
-            "Recovery Protocol Active";
-
-        triggerRecoveryProtocol();
-
-        resultWrapper.classList.remove("hidden");
-
-        resultWrapper.classList.add(
-            "animate-pop"
-        );
-
-    }, 1200);
-
-});
-
-// Accept Recovery
-
-acceptBtn.addEventListener("click", () => {
-
-    resetSystem();
-
-    successBar.classList.remove("hidden");
-
-    successBar.classList.add(
-        "animate-pop"
-    );
-
-});
-
-// Skip Recovery
-
-postponeBtn.addEventListener("click", () => {
-
-    resetSystem();
-
-});
-
-// Reset System
-
-function resetSystem() {
-
-    isNotificationOpen = false;
-
-    resultWrapper.classList.add("hidden");
-
-    alertCloud.classList.add("hidden");
-
-    activityBtn.disabled = false;
-
-    activityBtn.innerHTML =
-        "<span class='icon-btn'>&#9873;</span> End Current Training Set";
-
+function closeNotification(modalId) {
+    document.getElementById(modalId).classList.remove('show-popup');
+    shuffleSpamCounter = 0;
+    // عند الانتهاء بنجاح، يتم إخفاء التنبيه مرة أخرى
+    document.getElementById('matrixStreamAlert').classList.remove('show-alert');
+    
+    if(modalId !== 'warningNoticeModal') {
+        serveNextMatrixTask();
+    }
 }

@@ -1,80 +1,27 @@
-// Daily Goal
+function evaluateHydrationInput() {
+    const rawData = document.getElementById('hydrationMetricField').value.trim();
+    const alertLabel = document.getElementById('validationWarning');
+    const progressFill = document.getElementById('dynamicMetricFill');
+    const textualStatus = document.getElementById('completionOutputText');
+    const successBox = document.getElementById('congratsBanner');
 
-const dailyGoal = 8;
-
-// Elements
-
-const input =
-    document.getElementById("waterInput");
-
-const button =
-    document.getElementById("trackBtn");
-
-const progressBar =
-    document.getElementById("progressBar");
-
-const percentage =
-    document.getElementById("percentage");
-
-const message =
-    document.getElementById("message");
-
-// Event Listener
-
-button.addEventListener("click", () => {
-
-    let waterAmount = input.value.trim();
-
-    // Validation
-
-    if (waterAmount === "" || isNaN(waterAmount)) {
-
-        message.textContent =
-            "❌ Please enter a valid number";
-
-        message.style.color = "red";
-
-        progressBar.style.width = "0%";
-
-        percentage.textContent = "0%";
-
+    if (!/^[0-9]+$/.test(rawData)) {
+        alertLabel.classList.remove('hidden');
         return;
     }
 
-    waterAmount = Number(waterAmount);
+    alertLabel.classList.add('hidden');
+    const scalarValue = parseInt(rawData);
+    const maximumCap = 8;
+    
+    let evaluationRatio = Math.min(Math.round((scalarValue / maximumCap) * 100), 100);
+    
+    progressFill.style.width = `${evaluationRatio}%`;
+    textualStatus.innerText = `${evaluationRatio}% of essential daily quota logs completed`;
 
-    // Calculate Progress
-
-    let progress =
-        (waterAmount / dailyGoal) * 100;
-
-    if (progress > 100) {
-        progress = 100;
-    }
-
-    // Update Progress Bar
-
-    progressBar.style.width =
-        progress + "%";
-
-    percentage.textContent =
-        Math.floor(progress) + "%";
-
-    // Success Message
-
-    if (waterAmount >= dailyGoal) {
-
-        message.textContent =
-            "🎉 Congratulations! Goal Achieved!";
-
-        message.style.color = "#22c55e";
-
+    if (evaluationRatio >= 100) {
+        successBox.classList.remove('hidden');
     } else {
-
-        message.textContent =
-            "💧 Keep Going! You're Doing Great!";
-
-        message.style.color = "white";
+        successBox.classList.add('hidden');
     }
-
-});
+}

@@ -1,135 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitPulse 2026 | Mood Interface</title>
-
+    <title>The Vitality Nexus | Mood Interface</title>
     <link rel="stylesheet" href="fitpulse.css">
 </head>
+<body id="moodBody">
 
-<body class="theme-default">
-
-    <header class="main-header">
-
-        <div class="header-container">
-
-            <div class="logo">
-                GlobalCorp
-                <span>FitPulse</span>
-            </div>
-
-            <div class="project-badge">
-                High-Fidelity Prototype v2.026
-            </div>
-
+    <nav class="nexus-navbar">
+        <div class="nexus-logo-container">
+            <img src="logo-girl.png" alt="Logo" style="width: 32px; height: 32px; object-fit: contain;">
+            <span>The Vitality Nexus</span>
         </div>
+        <div class="nexus-nav-links">
+            <a href="micro-break.html" class="nexus-nav-link">Micro Break</a>
+            <a href="mood-interface.html" class="nexus-nav-link active">Mood Interface</a>
+            <a href="progress-tracker.html" class="nexus-nav-link">Progress Tracker</a>
+            <a href="team-pulse.html" class="nexus-nav-link">Team Pulse</a>
+        </div>
+    </nav>
 
-    </header>
-
-    <main class="viewport">
-
-        <section class="vitality-card">
-
-            <div class="card-header">
-
-                <h1 id="greeting">
-                    Welcome to Vitality Nexus
-                </h1>
-
-                <p>
-                    Optimize your workspace environment instantly by
-                    selecting your current energy state.
-                </p>
-
+    <div class="nexus-container">
+        <section class="nexus-soft-card nexus-text-center">
+            <h2 style="font-size: 20px; color: var(--accent-maroon); font-weight: 700; margin-bottom: 8px;">
+                How do you feel today? ✿
+            </h2>
+            <p style="color: #8A6F73; font-size: 13px; margin-bottom: 20px;">
+                Type your state or select a quick profile button below to get suitable tasks.
+            </p>
+            
+            <textarea id="userMoodNotes" class="nexus-textarea" placeholder="Type here... (e.g., 'I feel tired')"></textarea>
+            
+            <div style="margin-bottom: 20px;">
+                <button class="nexus-real-button" onclick="analyzeWrittenMood()">Submit Status</button>
             </div>
 
-            <div class="mood-grid">
-
-                <button class="mood-btn"
-                        data-mood="excited">
-
-                    <div class="icon-wrapper">
-                        🚀
-                    </div>
-
-                    <span>Excited</span>
-
-                </button>
-
-                <button class="mood-btn"
-                        data-mood="exhausted">
-
-                    <div class="icon-wrapper">
-                        🪫
-                    </div>
-
-                    <span>Exhausted</span>
-
-                </button>
-
-                <button class="mood-btn"
-                        data-mood="calm">
-
-                    <div class="icon-wrapper">
-                        🧘
-                    </div>
-
-                    <span>Calm</span>
-
-                </button>
-
-                <button class="mood-btn"
-                        data-mood="stressed">
-
-                    <div class="icon-wrapper">
-                        😫
-                    </div>
-
-                    <span>Stressed</span>
-
-                </button>
-
+            <div style="border-top: 1px dashed rgba(115,74,81,0.15); padding-top: 15px;">
+                <span style="font-size: 11px; font-weight: bold; color: #8A6F73; display: block; margin-bottom: 10px;">QUICK SELECTION PROFILES:</span>
+                <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                    <button class="nexus-real-button" style="padding: 6px 16px; font-size: 12px;" onclick="applySystemMood('excited')">✦ Excited</button>
+                    <button class="nexus-real-button" style="padding: 6px 16px; font-size: 12px;" onclick="applySystemMood('exhausted')">✧ Exhausted</button>
+                    <button class="nexus-real-button" style="padding: 6px 16px; font-size: 12px;" onclick="applySystemMood('calm')">✥ Calm</button>
+                    <button class="nexus-real-button" style="padding: 6px 16px; font-size: 12px;" onclick="applySystemMood('frustrated')">✿ Frustrated</button>
+                </div>
             </div>
-
-            <div id="status-panel"
-                 class="status-panel">
-
-                <p id="status-text">
-                    Awaiting employee selection to initialize environment...
-                </p>
-
-                <div class="pulse-line"></div>
-
-            </div>
-
-            <!-- Navigation -->
-
-            <div style="margin-top:30px;text-align:center;">
-
-                <a href="micro-break.html">
-                    Next Action →
-                </a>
-
-            </div>
-
         </section>
 
-    </main>
+        <div id="moodPreviewSlot"></div>
+    </div>
 
-    <footer class="footer">
+    <div class="nexus-production-tag">Produced in 2026 ©</div>
 
-        <p>
-            © 2026 GlobalCorp Industries Wellness Initiative.
-            Action 01 Approved Workflow.
-        </p>
+    <script>
+        const moodPreviews = {
+            excited: { title: "Routine Selected: Full Action", desc: "You are energetic! Intensive exercises are ready.", btnText: "Go to Micro-Break ⚡︎" },
+            exhausted: { title: "Routine Selected: Soft Recovery", desc: "Light tasks, breathing, and eye rest options are active.", btnText: "Open Soft Recovery 🍃" },
+            calm: { title: "Routine Selected: Regular Flow", desc: "Balanced standard posture and wellness routines are ready.", btnText: "View Active Flow" },
+            frustrated: { title: "Routine Selected: Relax Focus", desc: "Relaxation breaks are selected to clear tension.", btnText: "Start Relaxation 🌸" }
+        };
 
-    </footer>
+        function analyzeWrittenMood() {
+            const text = document.getElementById('userMoodNotes').value.toLowerCase();
+            if(!text.trim()) return;
+            if(text.includes('tired') || text.includes('exhausted') || text.includes('تعبان') || text.includes('مرهق')) applySystemMood('exhausted');
+            else if(text.includes('happy') || text.includes('excited') || text.includes('متحمس') || text.includes('سعيد')) applySystemMood('excited');
+            else if(text.includes('angry') || text.includes('frustrated') || text.includes('معصب') || text.includes('محبط')) applySystemMood('frustrated');
+            else applySystemMood('calm');
+        }
 
-    <script src="mood-interface.js"></script>
-    <a href="micro-break.html">
-    Next Action →
-</a>
+        function applySystemMood(moodValue) {
+            const body = document.getElementById('moodBody');
+            const previewSlot = document.getElementById('moodPreviewSlot');
+            body.className = ""; body.classList.add(`mood-${moodValue}`);
+            localStorage.setItem('nexusUserMood', moodValue);
 
+            const previewData = moodPreviews[moodValue];
+            previewSlot.innerHTML = `
+                <section class="nexus-soft-card nexus-text-center">
+                    <h4 style="margin: 0 0 8px 0; font-size: 15px; color: var(--accent-maroon); font-weight: 700;">${previewData.title}</h4>
+                    <p style="font-size: 13px; color: #8A6F73; margin-bottom: 15px;">${previewData.desc}</p>
+                    <a href="micro-break.html" class="nexus-real-button" style="text-decoration: none; width: 60%; display: inline-block; font-size:13px;">${previewData.btnText}</a>
+                </section>
+            `;
+        }
+        window.onload = function() {
+            const cachedMood = localStorage.getItem('nexusUserMood');
+            if(cachedMood) applySystemMood(cachedMood);
+        }
+    </script>
 </body>
 </html>

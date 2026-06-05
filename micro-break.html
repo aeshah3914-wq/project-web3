@@ -1,146 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitPulse 2026 - Smart Micro-Break Generator</title>
-
+    <title>The Vitality Nexus | Micro-Break</title>
     <link rel="stylesheet" href="fitpulse.css">
 </head>
+<body id="matrixBody">
 
-<body>
-
-    <div class="app-container">
-
-        <header class="app-header">
-            <h1>
-                Smart Recovery Assistant
-                <span class="icon-header">&#9874;</span>
-            </h1>
-
-            <p>
-                Automatically detects the end of your training sets and
-                prescribes immediate muscular recovery protocols.
-            </p>
-        </header>
-
-        <div class="control-section">
-
-            <button id="activity-btn" class="pulse-btn">
-                <span class="icon-btn">&#9873;</span>
-                End Current Training Set
-            </button>
-
+    <nav class="nexus-navbar">
+        <div class="nexus-logo-container">
+            <img src="logo-girl.png" alt="Logo" style="width: 32px; height: 32px; object-fit: contain;">
+            <span>The Vitality Nexus</span>
         </div>
-
-        <div style="margin-top:30px;text-align:center;">
-
-    <a href="mood-interface.html">
-        ← Previous
-    </a>
-
-    &nbsp;&nbsp;&nbsp;
-
-    <a href="progress-tracker.html">
-        Next →
-    </a>
-
-</div>
-
-</div>
-        <div id="alert-cloud" class="alert-cloud hidden">
-
-            <img
-                src="alert-sad.png"
-                alt="Warning"
-                class="alert-img"
-            >
-
-            <div class="alert-text">
-
-                <strong>
-                    &#9888; Recovery Alert:
-                </strong>
-
-                Pulse sensors indicate you haven't completed your
-                current recovery window. Rest first to protect
-                your muscles.
-
-            </div>
-
+        <div class="nexus-nav-links">
+            <a href="micro-break.html" class="nexus-nav-link active">Micro Break</a>
+            <a href="mood-interface.html" class="nexus-nav-link">Mood Interface</a>
+            <a href="progress-tracker.html" class="nexus-nav-link">Progress Tracker</a>
+            <a href="team-pulse.html" class="nexus-nav-link">Team Pulse</a>
         </div>
+    </nav>
 
-        <main id="result-wrapper"
-              class="result-wrapper hidden">
+    <div class="nexus-container">
+        <section class="nexus-soft-card nexus-text-center">
+            <!-- إضافة اليونيك إيموجي هنا لعنوان الكارت الرئيسي كما في لقطة الشاشة المرفقة -->
+            <h1 style="font-weight: 700; font-size: 22px; margin-bottom: 5px; color: var(--accent-maroon);">Your Break Exercise 𓏲✿</h1>
+            <p style="color: #8A6F73; font-size: 13px; margin-bottom: 20px;">Take a short break to refresh your physical performance.</p>
+            <button class="nexus-real-button" onclick="shuffleMatrixCycle()">Change Exercise</button>
 
-            <h2 class="section-title">
-
-                <span class="icon-title">
-                    &#9201;
-                </span>
-
-                Recommended Recovery Protocol:
-
-            </h2>
-
-            <div id="break-card"
-                 class="break-card">
-
-                <div class="card-image-container">
-
-                    <img id="break-img"
-                         src=""
-                         alt="Recovery Exercise">
-
+            <div id="matrixStreamAlert" class="recovery-alert-box">
+                <img src="alert-sad.png" alt="Alert Status" style="width: 40px; height: 40px; object-fit: contain;">
+                <div style="text-align: left; width: 100%;">
+                    <strong style="color: var(--accent-maroon); font-size: 13px;">Notice:</strong> 
+                    <span style="color: #9E7A80; font-size: 12px;">Exercises match your current energy level.</span>
                 </div>
-
-                <h3 id="break-title"
-                    class="break-title">
-                </h3>
-
-                <p id="break-desc"
-                   class="break-desc">
-                </p>
-
-                <div class="card-controls">
-
-                    <button id="accept-btn">
-                        ✔ Start Recovery
-                    </button>
-
-                    <button id="postpone-btn">
-                        ➜ Skip Session
-                    </button>
-
-                </div>
-
             </div>
+        </section>
 
-        </main>
-
-        <div id="success-bar"
-             class="success-bar hidden">
-
-            <span id="success-text">
-
-                ✔ Recovery session logged successfully.
-                Heart rate returned to safe zone.
-
-            </span>
-
-        </div>
-
+        <section class="nexus-soft-card">
+            <h3 style="text-align: left; font-size: 16px; margin-bottom: 15px; color: var(--accent-maroon);">Active Task:</h3>
+            <div class="single-matrix-container">
+                <div id="matrixActiveCardSlot" style="width: 100%;"></div>
+            </div>
+        </section>
     </div>
 
-    <script src="micro-break.js"></script>
+    <div id="successNoticeModal" class="nexus-modal-overlay">
+        <div class="nexus-custom-alert">
+            <!-- إضافة اليونيك إيموجي هنا لعنوان النافذة المنبثقة التوضيحية كما في لقطة الشاشة المرفقة -->
+            <h2 style="color: var(--accent-maroon); font-weight: 700; font-size: 18px; margin-top: 0;">Routine Completed! 𓏲✦</h2>
+            <p style="color: #8A6F73; font-size: 13px; margin-bottom: 25px;">Fantastic! Your task is updated correctly.</p>
+            <button class="nexus-real-button" onclick="closeNotification('successNoticeModal')">Perfect</button>
+        </div>
+    </div>
 
-    <a href="mood-interface.html">
-    ← Previous
-</a>
+    <div id="skipNoticeModal" class="nexus-modal-overlay">
+        <div class="nexus-custom-alert">
+            <h2 style="color: var(--accent-maroon); font-weight: 700; font-size: 18px; margin-top: 0;">Routine Skipped</h2>
+            <p style="color: #8A6F73; font-size: 13px; margin-bottom: 25px;">Moving to the next available routine.</p>
+            <button class="nexus-real-button" onclick="closeNotification('skipNoticeModal')">Proceed</button>
+        </div>
+    </div>
 
-<a href="progress-tracker.html">
-    Next →
-</a>
+    <div id="warningNoticeModal" class="nexus-modal-overlay">
+        <div class="nexus-custom-alert">
+            <img src="alert-sad.png" alt="Warning" style="width: 55px; height: 55px; margin-bottom: 15px; object-fit: contain;">
+            <h2 style="color: #8A6167; font-weight: 700; font-size: 18px; margin-top: 0;">Notice</h2>
+            <p style="color: #8A6F73; font-size: 13px; margin-bottom: 25px;">Please finish or skip the current active routine first.</p>
+            <button class="nexus-real-button" onclick="closeNotification('warningNoticeModal')">I Understand</button>
+        </div>
+    </div>
 
+    <div class="nexus-production-tag">Produced in 2026 ©</div>
+
+    <script>
+        let shuffleSpamCounter = 0;
+        let lastSelectedId = "";
+
+        // بقاء الصور الأصلية للكروت في مكانها مع الحفاظ على اليونيك إيموجي الخاص بالعناوين الفرعية للتمارين
+        const matrixRoutines = [
+            { id: "water", title: "Drink Water 𓏲✿", img: "card-water.png", actionText: "Complete 250ml", type: "heavy" },
+            { id: "eyes", title: "Rest Eyes 𓏲𖦹", img: "card-eyes.jpg", actionText: "Eyes Rested", type: "light" },
+            { id: "stretch", title: "Stretching Break 𓏲", img: "card-stretching.png", actionText: "Stretching Done", type: "heavy" },
+            { id: "breath", title: "Deep Breathing Workout 𓏲🪟", img: "card-breathing.png", actionText: "Breathing Synced", type: "light" }
+        ];
+
+        function serveNextMatrixTask() {
+            const slot = document.getElementById('matrixActiveCardSlot');
+            if (!slot) return;
+
+            const activeMood = localStorage.getItem('nexusUserMood') || 'calm';
+            document.getElementById('matrixBody').className = "mood-" + activeMood;
+
+            let availableTasks = matrixRoutines.filter(task => task.id !== lastSelectedId);
+            if (activeMood === 'exhausted') { availableTasks = availableTasks.filter(task => task.type === "light"); }
+
+            let chosenTask = availableTasks[Math.floor(Math.random() * availableTasks.length)];
+            if(!chosenTask) chosenTask = matrixRoutines[3]; 
+            lastSelectedId = chosenTask.id;
+
+            slot.innerHTML = `
+                <div class="matrix-active-card">
+                    <img src="${chosenTask.img}" class="nexus-card-image" alt="${chosenTask.title}">
+                    <h4 style="margin: 0 0 8px 0; font-size: 16px; color: var(--accent-maroon); font-weight:700;">${chosenTask.title}</h4>
+                    <p style="font-size: 13px; color: #8A6F73; margin-bottom: 20px;">Please follow the exercise shown above to refresh your active state.</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <button class="nexus-real-button" onclick="triggerTaskCompletion()">${chosenTask.actionText}</button>
+                        <button class="nexus-real-button nexus-skip-button" onclick="triggerTaskSkip()">Skip</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.onload = () => { serveNextMatrixTask(); };
+
+        function shuffleMatrixCycle() {
+            shuffleSpamCounter++;
+            if (shuffleSpamCounter >= 2) { document.getElementById('matrixStreamAlert').classList.add('show-alert'); }
+            if (shuffleSpamCounter > 3) { document.getElementById('warningNoticeModal').classList.add('show-popup'); return; }
+            serveNextMatrixTask();
+        }
+
+        function triggerTaskCompletion() { document.getElementById('successNoticeModal').classList.add('show-popup'); }
+        function triggerTaskSkip() { document.getElementById('skipNoticeModal').classList.add('show-popup'); }
+
+        function closeNotification(modalId) {
+            document.getElementById(modalId).classList.remove('show-popup');
+            shuffleSpamCounter = 0;
+            document.getElementById('matrixStreamAlert').classList.remove('show-alert');
+            serveNextMatrixTask();
+        }
+    </script>
 </body>
 </html>

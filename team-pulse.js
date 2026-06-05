@@ -1,138 +1,38 @@
-// Employee Data
+const cohortNames = ["Sarah", "Emily", "Jessica", "Amira", "Rachel", "Chloe"];
+const trackingActivities = ["is performing spinal alignment routines", "completed 350ml cellular replenishment", "initiated optical context recovery logs"];
+const decorativeTokens = ["✦", "✿", "✧", "♥︎"];
 
-const employees = [
+function synchronizeNetworkFeed() {
+    const contentTarget = document.getElementById('asyncFeedsGrid');
+    if (!contentTarget) return;
+    contentTarget.innerHTML = "";
 
-    {
-        name: "Ahmed Ali",
-        department: "Engineering",
-        activity: "Completed hydration goal"
-    },
+    for (let i = 0; i < 3; i++) {
+        const structuralName = cohortNames[Math.floor(Math.random() * cohortNames.length)];
+        const dynamicAct = trackingActivities[Math.floor(Math.random() * trackingActivities.length)];
+        const systemToken = decorativeTokens[Math.floor(Math.random() * decorativeTokens.length)];
 
-    {
-        name: "Sara Mohamed",
-        department: "Marketing",
-        activity: "Taking a breathing break"
-    },
-
-    {
-        name: "Mona Khaled",
-        department: "HR",
-        activity: "Walking around the office"
+        const cardElement = document.createElement('div');
+        cardElement.className = 'team-member-card';
+        cardElement.innerHTML = `
+            <strong style="color: var(--accent-maroon);">${structuralName} (Core Division)</strong>
+            <span style="font-size:13px; color:#7A6266; margin: 4px 0;">${dynamicAct}</span>
+            <button class="nexus-real-button" style="padding:8px 18px; font-size:13px; border-radius:12px; box-shadow:0 5px 0px var(--accent-maroon);" onclick="transmitPulsePayload(this)">
+                ${systemToken} Broadcast Pulse
+            </button>
+            <span class="pulse-indicator-tag" style="font-size:11px; color:#B37D86; margin-top:4px; font-weight:bold;">Status: Active</span>
+        `;
+        contentTarget.appendChild(cardElement);
     }
+}
 
-];
+function transmitPulsePayload(btnReference) {
+    const cardScope = btnReference.parentElement;
+    cardScope.classList.add('pulsed');
+    btnReference.innerHTML = "🎔 Pulse Transmitted";
+    btnReference.disabled = true;
+    cardScope.querySelector('.pulse-indicator-tag').innerText = "Signal confirmed in enterprise ledger! ✦";
+}
 
-// Activity Feed Container
-
-const activityFeed =
-    document.getElementById("activity-feed");
-
-// Generate Employee Cards
-
-employees.forEach(employee => {
-
-    activityFeed.innerHTML += `
-
-    <div class="card">
-
-        <h2>${employee.name}</h2>
-
-        <span class="status">
-            🟢 Active Now
-        </span>
-
-        <h4>${employee.department}</h4>
-
-        <p class="activity-text">
-            ${employee.activity}
-        </p>
-
-        <p class="time">
-            2 minutes ago
-        </p>
-
-        <button class="pulse-btn">
-            Send Pulse ❤️
-        </button>
-
-        <p class="success-message"></p>
-
-    </div>
-
-    `;
-
-});
-
-// Pulse Buttons
-
-const pulseButtons =
-    document.querySelectorAll(".pulse-btn");
-
-// Send Encouragement
-
-pulseButtons.forEach(button => {
-
-    button.addEventListener("click", function () {
-
-        this.textContent =
-            "Pulse Sent ✅";
-
-        this.style.backgroundColor =
-            "#22c55e";
-
-        this.disabled = true;
-
-        const message =
-            this.nextElementSibling;
-
-        message.textContent =
-            "Encouragement sent successfully!";
-
-    });
-
-});
-
-// Dynamic Activities
-
-const activities = [
-
-    "Taking a wellness break",
-
-    "Drinking water",
-
-    "Completing breathing exercise",
-
-    "Walking around the office",
-
-    "Stretching for 5 minutes",
-
-    "Meditating quietly",
-
-    "Joining a fitness challenge",
-
-    "Completing a mindfulness session"
-
-];
-
-// Update Activities Every 10 Seconds
-
-setInterval(() => {
-
-    const activityTexts =
-        document.querySelectorAll(".activity-text");
-
-    activityTexts.forEach(activity => {
-
-        const randomActivity =
-            activities[
-                Math.floor(
-                    Math.random() * activities.length
-                )
-            ];
-
-        activity.textContent =
-            randomActivity;
-
-    });
-
-}, 10000);
+synchronizeNetworkFeed();
+setInterval(synchronizeNetworkFeed, 10000);
